@@ -5,12 +5,13 @@ export default function App() {
     const [link,setLink]=useState('')
     const [error,setError]=useState(null)
     const [response,setResponse]=useState('')
+    const [gmail,setGmail] = useState('')
 
     const getSummary =async(e)=>{
         e.preventDefault()
         setResponse('')
         try{
-            const res=await axios.post('http://localhost:5000',{link})
+            const res=await axios.post('https://videra-1.onrender.com',{link,gmail})
             setResponse(res.data)
         }catch(err){
             setError(err)
@@ -26,6 +27,15 @@ export default function App() {
             Videra
           </h1>
           <p className="text-center font-semibold">Get instant summary on your Gmail with Videra. Just paste the link to get Started!</p>
+          <input
+            type="gmail"
+            placeholder="Enter your gmail"
+            value={gmail}
+            onChange={e=>setGmail(e.target.value)}
+            className="p-4 w-full text-lg bg-gray-800/70 text-gray-200 border border-gray-700 rounded-xl transition duration-300
+           placeholder:text-gray-500
+           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          />
           <input
             type="text"
             placeholder="Paste YouTube Link Here"
