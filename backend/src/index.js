@@ -13,7 +13,7 @@ const composio = new Composio({
 })
 
 const userId = nanoid()
-const session = await composio.experimental.toolRouter.createSession(userId,{toolkits:[{toolkit:"gmail",authConfigId:'ac_hQBrrnnVuiYJ'},{toolkit:"googlemeet",authConfigId:'ac_BCIi2zRHpSZD'},{toolkit:"telegram",authConfigId:'ac_R4S08fjX-_o4'}]})
+const session = await composio.experimental.toolRouter.createSession(userId,{toolkits:[{toolkit:"gmail",authConfigId:'ac_hQBrrnnVuiYJ'},{toolkit:"googlemeet",authConfigId:'ac_BCIi2zRHpSZD'},{toolkit:"telegram",authConfigId:'ac_NSHnBODh0rwE'},{toolkit:"youtube",authConfigId:'ac_WYUBBnaRCGTv'}]})
 const mcpUrl = session.url
 
 const client = new OpenAI({
@@ -22,17 +22,21 @@ const client = new OpenAI({
 
 const port = process.env.PORT || 5000;
 
-app.get('/',async(req,res)=>{
+app.post('/',async(req,res)=>{
     try{
+        const {link,answer} = req.body;
+        if(!link){
+            return res.status(400).json({message:"Kindly enter the link"})
+        }
         const resp = await client.responses.create({
-            model:'gpt-4',
+            model:'gpt-4o',
             tools:[{
                 type:'mcp',
                 server_label:'cmcp',
                 server_url:mcpUrl,
                 require_approval:'never'
             }],
-            input:'Read the email from the connected account for a google meet link and send the summary of the meeting to telegram'
+            input:`Go to the youtube ${link} and send the summary of the video to tanishq1172005@gmail.com. The user replies will be:${answer}`
         })
         if(!resp){
             return res.status(500).json({message:"Server Error",error:resp.output_text})
