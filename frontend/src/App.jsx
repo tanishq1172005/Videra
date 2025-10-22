@@ -11,7 +11,7 @@ export default function App() {
         e.preventDefault()
         setResponse('')
         try{
-            const res=await axios.post('https://videra-1.onrender.com',{link,gmail})
+            const res=await axios.post('https://videra-1.onrender.com',{link})
             setResponse(res.data)
         }catch(err){
             setError(err)

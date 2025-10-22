@@ -24,8 +24,8 @@ const port = process.env.PORT || 5000;
 
 app.post('/',async(req,res)=>{
     try{
-        const {link,answer,gmail} = req.body;
-        if(!link || !gmail){
+        const {link,answer} = req.body;
+        if(!link){
             return res.status(400).json({message:"Please fill all fields"})
         }
         const resp = await client.responses.create({
@@ -36,7 +36,7 @@ app.post('/',async(req,res)=>{
                 server_url:mcpUrl,
                 require_approval:'never'
             }],
-            input:`Go to the youtube ${link} and send the summary of the video to ${gmail}. The user replies will be:${answer}`
+            input:`Go to the youtube ${link} and send the summary of the video to tanishq1172005@gmail.com. The user replies will be:${answer}`
         })
         if(!resp){
             return res.status(500).json({message:"Server Error",error:resp.output_text})
