@@ -36,7 +36,7 @@ app.post('/',async(req,res)=>{
                 server_url:mcpUrl,
                 require_approval:'never'
             }],
-            input:`Go to the youtube ${link} and send the summary of the video to tanishq1172005@gmail.com. The user replies will be:${answer}`
+            input:`Go to the youtube ${link} and send the summary of the video to ksharma200514@gmail.com. The user replies will be:${answer}`
         })
         if(!resp){
             return res.status(500).json({message:"Server Error",error:resp.output_text})

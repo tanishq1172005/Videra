@@ -12,6 +12,7 @@ export default function App() {
         setResponse('')
         try{
             const res=await axios.post('https://videra-1.onrender.com',{link})
+            console.log(res.data)
             setResponse(res.data)
         }catch(err){
             setError(err)
@@ -46,7 +47,7 @@ export default function App() {
            focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
           />
             {response && (
-                <p className="text-blue-400">{response}</p>
+                <p>{response}</p>
             )}
           <button
           onClick={getSummary}
